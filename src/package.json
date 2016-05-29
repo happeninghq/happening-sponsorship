@@ -1,0 +1,19 @@
+{
+  "name": "happening-sponsorship",
+  "version": "0.1.0",
+  "description": "happening-sponsorship",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/happeninghq/happening-sponsorship.git"
+  },
+  "author": "Jonathan Scott <jonathan@jscott.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/happeninghq/happening-sponsorship/issues"
+  },
+  "homepage": "https://github.com/happeninghq/happening-sponsorship#readme",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+}
