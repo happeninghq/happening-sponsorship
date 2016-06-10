@@ -1,0 +1,9 @@
+<ul class="plain-list sponsors">
+    {% for tier in sponsor_tiers %}
+        {% if tier.community_sponsorships.count > 0 %}
+            {% for sponsorship in tier.community_sponsorships.all %}
+                <li class="sponsors__sponsor"><a href="{% url "view_sponsor" sponsorship.sponsor.pk %}"><img class = "sponsors__sponsor-image" src="{{sponsorship.sponsor.logo.url}}"></a></li>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+</ul>
