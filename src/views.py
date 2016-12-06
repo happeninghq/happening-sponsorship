@@ -59,7 +59,7 @@ def edit_sponsor(request, pk):
         form = SponsorForm(request.POST, request.FILES, instance=sponsor)
         if form.is_valid():
             form.save()
-            return redirect("staff_sponsors")
+            return redirect("sponsors")
     return render(request, "sponsorship/admin/edit_sponsor.html",
                   {"sponsor": sponsor, "form": form})
 
@@ -72,7 +72,7 @@ def create_sponsor(request):
         form = SponsorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("staff_sponsors")
+            return redirect("sponsors")
     return render(request, "sponsorship/admin/create_sponsor.html",
                   {"form": form})
 
@@ -95,7 +95,7 @@ def edit_sponsorship_tier(request, pk):
                                instance=sponsorship_tier)
         if form.is_valid():
             form.save()
-            return redirect("admin_sponsorship_tiers")
+            return redirect("sponsorship_tiers")
     return render(request, "sponsorship/admin/edit_sponsorship_tier.html",
                   {"sponsorship_tier": sponsorship_tier, "form": form})
 
@@ -108,7 +108,7 @@ def create_sponsorship_tier(request):
         form = SponsorTierForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect("admin_sponsorship_tiers")
+            return redirect("sponsorship_tiers")
     return render(request, "sponsorship/admin/create_sponsorship_tier.html",
                   {"form": form})
 
