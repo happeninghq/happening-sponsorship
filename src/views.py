@@ -1,7 +1,7 @@
 """Sponsorship views."""
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Sponsor, EventSponsor, SponsorTier, CommunitySponsorship
-from happening.utils import staff_member_required, admin_required
+from happening.utils import admin_required
 from .forms import SponsorForm, EventSponsorForm, SponsorTierForm
 from .forms import CommunitySponsorshipForm
 from events.models import Event
@@ -16,23 +16,23 @@ def view_sponsor(request, pk):
                   {"sponsor": sponsor})
 
 
-@staff_member_required
+@admin_required
 def sponsors(request):
     """Administrate sponsors."""
     sponsors = Sponsor.objects.all()
-    return render(request, "sponsorship/staff/sponsors.html",
+    return render(request, "sponsorship/admin/sponsors.html",
                   {"sponsors": sponsors})
 
 
-@staff_member_required
+@admin_required
 def staff_view_sponsor(request, pk):
     """View sponsor as staff."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
-    return render(request, "sponsorship/staff/view.html",
+    return render(request, "sponsorship/admin/view.html",
                   {"sponsor": sponsor})
 
 
-@staff_member_required
+@admin_required
 def add_community_sponsorship_to_sponsor(request, pk):
     """Add a community sponsorship to a sponsor."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
@@ -45,12 +45,12 @@ def add_community_sponsorship_to_sponsor(request, pk):
             e.save()
 
             return redirect("staff_view_sponsor", sponsor.pk)
-    return render(request, "sponsorship/staff/" +
+    return render(request, "sponsorship/admin/" +
                   "add_community_sponsorship_to_sponsor.html",
                   {"form": form, "sponsor": sponsor})
 
 
-@staff_member_required
+@admin_required
 def edit_sponsor(request, pk):
     """Edit sponsor."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
@@ -60,11 +60,11 @@ def edit_sponsor(request, pk):
         if form.is_valid():
             form.save()
             return redirect("staff_sponsors")
-    return render(request, "sponsorship/staff/edit_sponsor.html",
+    return render(request, "sponsorship/admin/edit_sponsor.html",
                   {"sponsor": sponsor, "form": form})
 
 
-@staff_member_required
+@admin_required
 def create_sponsor(request):
     """Create sponsor."""
     form = SponsorForm()
@@ -73,7 +73,7 @@ def create_sponsor(request):
         if form.is_valid():
             form.save()
             return redirect("staff_sponsors")
-    return render(request, "sponsorship/staff/create_sponsor.html",
+    return render(request, "sponsorship/admin/create_sponsor.html",
                   {"form": form})
 
 
@@ -113,7 +113,7 @@ def create_sponsorship_tier(request):
                   {"form": form})
 
 
-@staff_member_required
+@admin_required
 @require_POST
 def add_sponsor_to_event(request, pk):
     """Edit the sponsor for an event."""
@@ -127,7 +127,7 @@ def add_sponsor_to_event(request, pk):
     return redirect("staff_event", event.pk)
 
 
-@staff_member_required
+@admin_required
 @require_POST
 def remove_sponsor_from_event(request, pk):
     """Remove a sponsor from the event."""

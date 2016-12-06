@@ -8,5 +8,4 @@ class Plugin(object):
     name = "Sponsorship"
 
     url_root = "sponsorship/"
-    staff_url_root = "sponsorship/"
     admin_url_root = "sponsorship/"
