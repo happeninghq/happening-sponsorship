@@ -1,7 +1,7 @@
 """Sponsorship views."""
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Sponsor, EventSponsor, SponsorTier, CommunitySponsorship
-from happening.utils import admin_required
+from happening.utils import require_permission
 from .forms import SponsorForm, EventSponsorForm, SponsorTierForm
 from .forms import CommunitySponsorshipForm
 from events.models import Event
@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.views.decorators.http import require_POST
 
 
+@require_permission("manage_sponsors")
 def view_sponsor(request, pk):
     """View a sponsor's profile."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
@@ -16,7 +17,7 @@ def view_sponsor(request, pk):
                   {"sponsor": sponsor})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def sponsors(request):
     """Administrate sponsors."""
     sponsors = Sponsor.objects.all()
@@ -24,7 +25,7 @@ def sponsors(request):
                   {"sponsors": sponsors})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def staff_view_sponsor(request, pk):
     """View sponsor as staff."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
@@ -32,7 +33,7 @@ def staff_view_sponsor(request, pk):
                   {"sponsor": sponsor})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def add_community_sponsorship_to_sponsor(request, pk):
     """Add a community sponsorship to a sponsor."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
@@ -50,7 +51,7 @@ def add_community_sponsorship_to_sponsor(request, pk):
                   {"form": form, "sponsor": sponsor})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def edit_sponsor(request, pk):
     """Edit sponsor."""
     sponsor = get_object_or_404(Sponsor, pk=pk)
@@ -64,7 +65,7 @@ def edit_sponsor(request, pk):
                   {"sponsor": sponsor, "form": form})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def create_sponsor(request):
     """Create sponsor."""
     form = SponsorForm()
@@ -77,7 +78,7 @@ def create_sponsor(request):
                   {"form": form})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def sponsorship_tiers(request):
     """Administrate sponsorship tiers."""
     sponsorship_tiers = SponsorTier.objects.all()
@@ -85,7 +86,7 @@ def sponsorship_tiers(request):
                   {"sponsorship_tiers": sponsorship_tiers})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def edit_sponsorship_tier(request, pk):
     """Edit sponsorship tier."""
     sponsorship_tier = get_object_or_404(SponsorTier, pk=pk)
@@ -100,7 +101,7 @@ def edit_sponsorship_tier(request, pk):
                   {"sponsorship_tier": sponsorship_tier, "form": form})
 
 
-@admin_required
+@require_permission("manage_sponsors")
 def create_sponsorship_tier(request):
     """Create sponsorship_tier."""
     form = SponsorTierForm()
@@ -113,7 +114,7 @@ def create_sponsorship_tier(request):
                   {"form": form})
 
 
-@admin_required
+@require_permission("manage_events")
 @require_POST
 def add_sponsor_to_event(request, pk):
     """Edit the sponsor for an event."""
@@ -127,7 +128,7 @@ def add_sponsor_to_event(request, pk):
     return redirect("staff_event", event.pk)
 
 
-@admin_required
+@require_permission("manage_events")
 @require_POST
 def remove_sponsor_from_event(request, pk):
     """Remove a sponsor from the event."""

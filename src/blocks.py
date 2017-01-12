@@ -20,6 +20,6 @@ def staff_event(request, event):
     """Add sponsorship links to staff event."""
     return render_block(
         request,
-        "sponsorship/blocks/staff/event.html",
+        "sponsorship/blocks/admin/event.html",
         {"event": event,
          "event_sponsor_form": EventSponsorForm(event=event)})
